@@ -1,27 +1,88 @@
-const Node = require('./node');
+class TicTacToe { 
+constructor() { 
 
-class LinkedList {
-    constructor() {}
+this.number = 1; 
+this.grid = [[null,null,null], 
+[null,null,null], 
+[null,null,null]]; 
 
-    append(data) {}
+} 
 
-    head() {}
 
-    tail() {}
+getCurrentPlayerSymbol() { 
+if((this.number % 2) != 0){ 
+return 'x'; 
+} else { 
+return 'o'; 
+} 
+} 
 
-    at(index) {}
 
-    insertAt(index, data) {}
+nextTurn(rowIndex, columnIndex) { 
+if(this.getFieldValue(rowIndex,columnIndex)==null){ 
+this.grid[rowIndex][columnIndex] = this.getCurrentPlayerSymbol(); 
+this.number++; 
+} 
+} 
 
-    isEmpty() {}
+isFinished() { 
+if (this.noMoreTurns() || this.getWinner()) { 
+return true; 
+} 
 
-    clear() {}
+return false; 
+} 
 
-    deleteAt(index) {}
+getWinner() { 
+if( this.grid[0][0]=='x' && this.grid[1][0]=='x' && this.grid[2][0]=='x' || 
+this.grid[0][1]=='x' && this.grid[1][1]=='x' && this.grid[2][1]=='x' || 
+this.grid[0][2]=='x' && this.grid[1][2]=='x' && this.grid[2][2]=='x' || 
 
-    reverse() {}
+this.grid[0][0]=='x' && this.grid[0][1]=='x' && this.grid[0][2]=='x' || 
+this.grid[1][0]=='x' && this.grid[1][1]=='x' && this.grid[1][2]=='x' || 
+this.grid[2][0]=='x' && this.grid[2][1]=='x' && this.grid[2][2]=='x' || 
 
-    indexOf(data) {}
-}
+this.grid[0][0]=='x' && this.grid[1][1]=='x' && this.grid[2][2]=='x' || 
+this.grid[2][0]=='x' && this.grid[1][1]=='x' && this.grid[0][2]=='x') 
+{ 
+return 'x'; 
+} 
+else if( 
 
-module.exports = LinkedList;
+this.grid[0][0]=='o' && this.grid[0][1]=='o' && this.grid[0][2]=='o' || 
+this.grid[1][0]=='o' && this.grid[1][1]=='o' && this.grid[1][2]=='o' || 
+this.grid[2][0]=='o' && this.grid[2][1]=='o' && this.grid[2][2]=='o' || 
+
+this.grid[0][0]=='o' && this.grid[1][0]=='o' && this.grid[2][0]=='o' || 
+this.grid[0][1]=='o' && this.grid[1][1]=='o' && this.grid[2][1]=='o' || 
+this.grid[0][2]=='o'&& this.grid[1][2]=='o' && this.grid[2][2]=='o' || 
+
+this.grid[0][0]=='o' && this.grid[1][1]=='o' && this.grid[2][2]=='o'|| 
+this.grid[2][0]=='o' && this.grid[1][1]=='o' && this.grid[0][2]=='o' ) 
+{ 
+return 'o'; 
+} else 
+return null; 
+} 
+
+noMoreTurns() { 
+if( this.grid[0][0]!=null && this.grid[1][0]!=null && this.grid[2][0]!=null 
+&& this.grid[0][1]!=null && this.grid[1][1]!=null && this.grid[2][1]!=null
+&& this.grid[0][2]!=null && this.grid[1][2]!=null && this.grid[2][2]!=null) 
+{ 
+return true; 
+} else { 
+return false; 
+} 
+} 
+isDraw() { 
+if((this.noMoreTurns()== false)|| (this.getWinner()!=null)){ 
+return false; 
+} else 
+return true; 
+} 
+getFieldValue(rowIndex, colIndex) { 
+return this.grid[rowIndex][colIndex]; 
+} 
+} 
+module.exports = TicTacToe;
